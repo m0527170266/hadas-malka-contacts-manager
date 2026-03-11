@@ -57,3 +57,18 @@ contactForm.addEventListener('submit', (event) => {
         alert("נא למלא את כל השדות");
     }
 });
+
+function renderContacts() {
+    const listElement = document.getElementById('contactsList');
+
+    listElement.innerHTML = "";
+
+    contacts.forEach((contact) => {
+        
+        const li = document.createElement('li');
+
+        li.textContent = `${contact.name} - ${contact.phone}`;
+
+        listElement.appendChild(li);
+    });
+}

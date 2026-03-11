@@ -4,7 +4,7 @@ const formFields = [
     { type: 'text', placeholder: 'מספר טלפון', id: 'phoneInput' }
 ];
 
-const contacts = [];
+// const contacts = [];
 
 const contactForm = document.createElement('form');
 

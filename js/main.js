@@ -1,3 +1,4 @@
+import { addContact, createContactsList } from './logic.js';
 const formFields = [
     { type: 'text', placeholder: 'שם איש קשר', id: 'nameInput' },
     { type: 'text', placeholder: 'מספר טלפון', id: 'phoneInput' }
@@ -36,39 +37,23 @@ phoneInput.addEventListener('keydown', (event) => {
 contactForm.addEventListener('submit', (event) => {
     event.preventDefault(); 
 
-    const nameVal = document.getElementById('nameInput').value.trim();
-    const phoneVal = document.getElementById('phoneInput').value.trim();
+   const nameInput = document.getElementById('nameInput');
+    const phoneInput = document.getElementById('phoneInput');
 
-    if (nameVal !== "" && phoneVal !== "") {
+    if (nameInput.value.trim() !== "" && phoneInput.value.trim() !== "") {
         
-        const newContact = { 
-            name: nameVal, 
-            phone: phoneVal 
-        };
-        
-        contacts.push(newContact); 
-        console.log("המערך המעודכן:", contacts);
+        addContact(nameInput.value.trim(), phoneInput.value.trim());
 
-        document.getElementById('nameInput').value = "";
-        document.getElementById('phoneInput').value = "";
+        const newList = createContactsList();
+
+        const oldList = document.getElementById('contactsList');
+        oldList.replaceWith(newList);
+
+        nameInput.value = "";
+        phoneInput.value = "";
         
-        alert("איש קשר נוסף בהצלחה!");
-    } else {
-        alert("נא למלא את כל השדות");
     }
+     else
+         {
+        alert("נא למלא את כל השדות");}
 });
-
-function renderContacts() {
-    const listElement = document.getElementById('contactsList');
-
-    listElement.innerHTML = "";
-
-    contacts.forEach((contact) => {
-        
-        const li = document.createElement('li');
-
-        li.textContent = `${contact.name} - ${contact.phone}`;
-
-        listElement.appendChild(li);
-    });
-}

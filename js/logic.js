@@ -16,11 +16,13 @@ export function createContactsList() {
     ul.id = "contactsList";
     ul.style.listStyleType = "none";
     ul.style.padding = "0";
+    ul.style.width = "300px"; // תואם לרוחב הטופס
 
     contacts.forEach(contact => {
         const li = document.createElement('li');
         li.style.display = "flex";
         li.style.alignItems = "center";
+        li.style.justifyContent = "space-between"; // מסדר את הטקסט מימין והסלקט משמאל
         li.style.gap = "15px";
         li.style.marginBottom = "10px";
         li.style.background = "#fff";
@@ -29,14 +31,20 @@ export function createContactsList() {
         li.style.boxShadow = "0 2px 5px rgba(0,0,0,0.05)";
 
         const span = document.createElement('span');
-        span.textContent = `${contact.name} - ${contact.phone}`;
+        // פונקציה פנימית לעדכון הטקסט עם האימוג'י
+        const updateSpanText = () => {
+            const emoji = contact.category ? contact.category + " " : "";
+            span.textContent = `${emoji}${contact.name} - ${contact.phone}`;
+        };
+        
+        updateSpanText();
 
         const select = document.createElement('select');
         const options = [
             { text: 'בחר קטגוריה', value: '' },
-            { text: 'משפחה', value: '🏠' },
-            { text: 'חברים', value: '🎈' },
-            { text: 'עבודה', value: '💼' }
+            { text: '🏠 משפחה', value: '🏠' },
+            { text: '🎈 חברים', value: '🎈' },
+            { text: '💼 עבודה', value: '💼' }
         ];
 
         options.forEach(opt => {
@@ -50,6 +58,7 @@ export function createContactsList() {
 
         select.addEventListener('change', () => {
             contact.category = select.value;
+            updateSpanText(); // מעדכן את השם מיד כשבוחרים אימוג'י
             console.log("Updated Contacts Array:", contacts);
         });
 

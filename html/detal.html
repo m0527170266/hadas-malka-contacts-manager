@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>פרטי איש קשר</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body style="font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f4f9; margin: 0;">
+
+    <div id="detailsContainer" style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 300px; text-align: center;">
+        <h1 id="contactName" style="color: #333; margin-bottom: 20px;">טוען...</h1>
+        
+        <div id="contactInfo" style="text-align: right; line-height: 1.8; color: #555; margin-bottom: 25px;">
+            <p><strong>📱 טלפון:</strong> <span id="contactPhone"></span></p>
+            <p><strong>📂 קטגוריה:</strong> <span id="contactCategory"></span></p>
+        </div>
+
+        <button onclick="window.history.back()" style="background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">חזור לרשימה</button>
+    </div>
+
+    <script type="module" src="../js/details.js"></script>
+</body>
+</html>

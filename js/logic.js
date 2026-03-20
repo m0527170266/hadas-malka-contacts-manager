@@ -49,9 +49,12 @@ export function createContactsList() {
         li.style.boxShadow = "0 2px 5px rgba(0,0,0,0.05)";
 
         const span = document.createElement('span');
+        
+        // התיקון כאן: הפיכת השם לקישור לדף הפרטים
         const updateSpanText = () => {
             const emoji = contact.category ? contact.category + " " : "";
-            span.textContent = `${emoji}${contact.name} - ${contact.phone}`;
+            // שימי לב ששם הקובץ בקישור הוא detal.html כפי שמופיע אצלך בצילום המסך
+            span.innerHTML = `${emoji}<a href="detal.html?id=${contact.id}" style="text-decoration: none; color: #007bff; font-weight: bold;">${contact.name}</a> - ${contact.phone}`;
         };
         
         updateSpanText();

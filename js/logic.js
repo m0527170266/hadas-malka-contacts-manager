@@ -1,5 +1,18 @@
-const contacts = [];
-let counter = 1;
+export let contacts = JSON.parse(localStorage.getItem('contacts')) || [];
+
+let counter = contacts.length > 0 ? Math.max(...contacts.map(c => c.id)) + 1 : 1;
+
+function saveToStorage() {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+}
+
+export function findCategory(id, newCategory) {
+    const contact = contacts.find(c => c.id === id);
+    if (contact) {
+        contact.category = newCategory;
+        saveToStorage();
+    }
+}
 
 export function addContact(name, phone) {
     const newContact = {
@@ -9,6 +22,7 @@ export function addContact(name, phone) {
         category: ""
     };
     contacts.push(newContact);
+    saveToStorage();
 }
 
 export function createContactsList() {
@@ -16,13 +30,17 @@ export function createContactsList() {
     ul.id = "contactsList";
     ul.style.listStyleType = "none";
     ul.style.padding = "0";
-    ul.style.width = "300px"; // תואם לרוחב הטופס
+    ul.style.width = "300px";
+
+    if (contacts.length === 0) {
+        return ul;
+    }
 
     contacts.forEach(contact => {
         const li = document.createElement('li');
         li.style.display = "flex";
         li.style.alignItems = "center";
-        li.style.justifyContent = "space-between"; // מסדר את הטקסט מימין והסלקט משמאל
+        li.style.justifyContent = "space-between";
         li.style.gap = "15px";
         li.style.marginBottom = "10px";
         li.style.background = "#fff";
@@ -31,7 +49,6 @@ export function createContactsList() {
         li.style.boxShadow = "0 2px 5px rgba(0,0,0,0.05)";
 
         const span = document.createElement('span');
-        // פונקציה פנימית לעדכון הטקסט עם האימוג'י
         const updateSpanText = () => {
             const emoji = contact.category ? contact.category + " " : "";
             span.textContent = `${emoji}${contact.name} - ${contact.phone}`;
@@ -57,9 +74,8 @@ export function createContactsList() {
         select.value = contact.category;
 
         select.addEventListener('change', () => {
-            contact.category = select.value;
-            updateSpanText(); // מעדכן את השם מיד כשבוחרים אימוג'י
-            console.log("Updated Contacts Array:", contacts);
+            findCategory(contact.id, select.value);
+            updateSpanText();
         });
 
         li.appendChild(span);

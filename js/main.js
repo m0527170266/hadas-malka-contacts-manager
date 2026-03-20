@@ -22,6 +22,37 @@ contactForm.appendChild(submitBtn);
 const formContainer = document.getElementById('formContainer');
 formContainer.appendChild(contactForm);
 
+const actionsContainer = document.createElement('div');
+actionsContainer.style.margin = "20px 0";
+actionsContainer.style.display = "flex";
+actionsContainer.style.gap = "10px";
+
+const printBtn = document.createElement('button');
+printBtn.textContent = 'הדפסה';
+printBtn.onclick = () => window.print();
+
+const clearAllBtn = document.createElement('button');
+clearAllBtn.textContent = 'מחיקת כל אנשי הקשר';
+clearAllBtn.style.backgroundColor = "#ff4d4d";
+clearAllBtn.style.color = "white";
+clearAllBtn.onclick = () => {
+    if (confirm("האם למחוק את כל אנשי הקשר?")) {
+        localStorage.removeItem('contacts');
+        location.reload();
+    }
+};
+
+const closeBtn = document.createElement('button');
+closeBtn.textContent = 'סגירת האתר';
+closeBtn.onclick = () => {
+    if (confirm("לסגור את האתר?")) {
+        window.close();
+    }
+};
+
+actionsContainer.append(printBtn, clearAllBtn, closeBtn);
+formContainer.appendChild(actionsContainer);
+
 formContainer.appendChild(createContactsList());
 
 const phoneInput = document.getElementById('phoneInput');
